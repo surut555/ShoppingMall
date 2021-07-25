@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyConstant {
   // Genernal
-  static String appName = 'shooping Mall';
+  static String appName = 'shopping Mall';
 
   // Route
   static String routeAuthen = '/authen';
