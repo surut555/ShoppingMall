@@ -38,4 +38,11 @@ class MyConstant {
         color: dark,
         fontWeight: FontWeight.normal,
       );
+
+  ButtonStyle myButtonStyle() => ElevatedButton.styleFrom(
+        primary: MyConstant.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      );
 }
