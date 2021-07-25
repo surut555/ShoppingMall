@@ -17,13 +17,30 @@ class _AuthenState extends State<Authen> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          children: [
-            buildImage(size),
-            buildAppName(),
-            buildUser(size),
-            buildPassword(size),
-          ],
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          behavior: HitTestBehavior.opaque,
+          child: ListView(
+            children: [
+              buildImage(size),
+              buildAppName(),
+              buildUser(size),
+              buildPassword(size),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 16),
+                    width: size * 0.6,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Login'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -39,7 +56,7 @@ class _AuthenState extends State<Authen> {
           child: TextField(
             decoration: InputDecoration(
               labelStyle: MyConstant().h3Style(),
-              labelText: 'User',
+              labelText: 'User:',
               prefixIcon: Icon(
                 Icons.account_circle_outlined,
                 color: MyConstant.dark,
@@ -86,7 +103,7 @@ class _AuthenState extends State<Authen> {
                       ),
               ),
               labelStyle: MyConstant().h3Style(),
-              labelText: 'Password',
+              labelText: 'Password:',
               prefixIcon: Icon(
                 Icons.lock_outline,
                 color: MyConstant.dark,
