@@ -10,6 +10,10 @@ class CreateAccoun extends StatefulWidget {
 class _CreateAccounState extends State<CreateAccoun> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Create New Account'),
+      ),
+    );
   }
 }
