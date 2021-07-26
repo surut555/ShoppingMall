@@ -273,9 +273,18 @@ class _CreateAccounState extends State<CreateAccoun> {
     );
   }
 
+  Set<Marker> setMarker() => <Marker>[
+        Marker(
+          markerId: MarkerId('id'),
+          position: LatLng(lat!, lng!),
+          infoWindow: InfoWindow(
+              title: 'คุณอยู่ที่นี่', snippet: 'Lat = $lat, Lng = $lng'),
+        ),
+      ].toSet();
+
   Widget buildMap() => Container(
         width: double.infinity,
-        height: 200,
+        height: 300,
         child: lat == null
             ? ShowProgress()
             // โชว์แผนที่จาก GoogelMap
@@ -285,6 +294,7 @@ class _CreateAccounState extends State<CreateAccoun> {
                   zoom: 16,
                 ),
                 onMapCreated: (controller) => {},
+                markers: setMarker(),
               ),
       );
 
