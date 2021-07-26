@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shoppingmall/utility/my_constant.dart';
 import 'package:shoppingmall/utility/my_dialog.dart';
 import 'package:shoppingmall/widgets/show_image.dart';
+import 'package:shoppingmall/widgets/show_progress.dart';
 import 'package:shoppingmall/widgets/show_title.dart';
 
 class CreateAccoun extends StatefulWidget {
@@ -18,6 +20,7 @@ class CreateAccoun extends StatefulWidget {
 class _CreateAccounState extends State<CreateAccoun> {
   String? typeUser;
   File? file;
+  double? lat, lng;
 
   @override
   void initState() {
@@ -41,6 +44,7 @@ class _CreateAccounState extends State<CreateAccoun> {
               'ไม่อนุญาติแชร์ Location', 'โปรดแชร์ Location');
         } else {
           //Find LatLang
+          findLatLng();
         }
       } else {
         if (locationPermission == LocationPermission.deniedForever) {
@@ -48,12 +52,33 @@ class _CreateAccounState extends State<CreateAccoun> {
               'ไม่อนุญาติแชร์ Location', 'โปรดแชร์ Location');
         } else {
           //Find LatLng
+          findLatLng();
         }
       }
     } else {
       print('Service Location Close');
       MyDialog().alertLocationService(BuildContext, context,
           'Location Service ปิดอยู่?', 'กรุณาเปิด Location ด้วยค่ะ');
+    }
+  }
+
+  Future<Null> findLatLng() async {
+    print('findLatLan ==> Work');
+    Position? position = await findPostion();
+    setState(() {
+      lat = position!.latitude;
+      lng = position.longitude;
+      print('lat = $lat, lng = $lng');
+    });
+  }
+
+  Future<Position?> findPostion() async {
+    Position position;
+    try {
+      position = await Geolocator.getCurrentPosition();
+      return position;
+    } catch (e) {
+      return null;
     }
   }
 
@@ -240,11 +265,28 @@ class _CreateAccounState extends State<CreateAccoun> {
             buildTitle('รูปภาพ'),
             buildSubTitle(),
             buildAvatar(size),
+            buildTitle('แสดงพิกัดที่คุณอยู่'),
+            buildMap(),
           ],
         ),
       ),
     );
   }
+
+  Widget buildMap() => Container(
+        width: double.infinity,
+        height: 200,
+        child: lat == null
+            ? ShowProgress()
+            // โชว์แผนที่จาก GoogelMap
+            : GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(lat!, lng!),
+                  zoom: 16,
+                ),
+                onMapCreated: (controller) => {},
+              ),
+      );
 
   Future<Null> chooseImage(ImageSource source) async {
     try {
