@@ -29,7 +29,7 @@ if (isset($_GET)) {
 		$lng = $_GET['lng'];
 		
 							
-		$sql = "INSERT INTO `user`(`id`, `name`, `type`, `address`, `phone`, `user`, `password`, `avatar`, `lat`, `lng`) VALUES (Null],'$name'],'$type'],'$address'],'$phone'],'$user'],'$password'],'$avatar'],'$lat'],'$lat'])";
+		$sql = "INSERT INTO `user`(`id`, `name`, `type`, `address`, `phone`, `user`, `password`, `avatar`, `lat`, `lng`) VALUES (Null,'$name','$type','$address','$phone','$user','$password','$avatar','$lat','$lat')";
 
 		$result = mysqli_query($link, $sql);
 
