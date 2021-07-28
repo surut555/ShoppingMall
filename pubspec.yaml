@@ -30,7 +30,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.0
   geolocator: ^7.3.1
+  # เชื่อมต่อGoogle map
   google_maps_flutter: ^2.0.6
+  dio: ^4.0.0
 
 dev_dependencies:
   flutter_test:
